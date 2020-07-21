@@ -1,3 +1,4 @@
+/* tslint:disable */
 import React from 'react';
 import EditorJS, { EditorConfig, OutputData } from '@editorjs/editorjs';
 
@@ -12,7 +13,6 @@ export class EditorWrapper extends React.PureComponent<WrapperProps> {
    */
   public editor: EditorJS;
 
-  
   /**
    * Node to append ref
    */
@@ -55,6 +55,7 @@ export class EditorWrapper extends React.PureComponent<WrapperProps> {
     const { onChange, onData } = this.props;
 
     if (onChange && typeof onChange === 'function') {
+      /* tslint:disable-next-line */
       onChange();
     }
 

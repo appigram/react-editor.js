@@ -1,6 +1,6 @@
 {
   "name": "@appigram/react-editor.js",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "description": "React wrapper component for Editor.js",
   "main": "dist/react-editorjs.js",
   "umd:main": "dist/react-editorjs.umd.js",
@@ -26,23 +26,23 @@
   "author": "Eugene Sysmanov <appigraml@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "@types/react": "^16.9.17",
-    "@types/react-dom": "^16.9.4",
-    "docz": "^2.2.0",
-    "microbundle": "^0.11.0",
-    "prettier": "1.19.1",
-    "rimraf": "^3.0.0",
-    "tslint": "^5.20.1",
+    "@types/react": "^16.9.43",
+    "@types/react-dom": "^16.9.8",
+    "docz": "^2.3.1",
+    "microbundle": "^0.12.3",
+    "prettier": "2.0.5",
+    "rimraf": "^3.0.2",
+    "tslint": "^6.1.2",
     "tslint-config-prettier": "^1.18.0",
-    "tslint-react": "^4.1.0"
+    "tslint-react": "^5.0.0"
   },
   "peerDependencies": {
     "prop-types": "^15.x",
     "react": "^16.x"
   },
   "dependencies": {
-    "@editorjs/editorjs": "^2.16.1",
-    "react": "^16.12.0",
-    "react-dom": "^16.12.0"
+    "@editorjs/editorjs": "^2.18.0",
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
   }
 }
