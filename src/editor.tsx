@@ -1,116 +1,126 @@
-/* tslint:disable */
-import React from 'react';
-import EditorJS, { EditorConfig, OutputData } from '@editorjs/editorjs';
+import React, {
+  FunctionComponent,
+  memo,
+  MutableRefObject,
+  ReactElement,
+  useCallback,
+  useEffect,
+  useRef,
+} from 'react'
+import EditorJS from '@editorjs/editorjs'
+import Paragraph from '@editorjs/paragraph'
+import Header from '@editorjs/header'
 
-export interface WrapperProps extends EditorConfig {
-  reinitOnPropsChange?: boolean;
-  onData?: (data: OutputData) => void;
+export interface IEditorJsProps extends EditorJS.EditorConfig {
+  children?: ReactElement
+  /**
+   * Element id where Editor will be append
+   * @deprecated property will be removed in next major release,
+   * use holder instead
+   */
+  holderId?: string
+  /**
+   * Element id where Editor will be append
+   */
+  holder?: string
+  /**
+   * reinitialize editor.js when component did update
+   */
+  reinitializeOnPropsChange?: boolean
+  /**
+   * returns the editorjs instance
+   */
+  editorInstance?: (instance: EditorJS) => void
 }
 
-export class EditorWrapper extends React.PureComponent<WrapperProps> {
-  /**
-   * Editor instance
-   */
-  public editor: EditorJS;
+const DEFAULT_ID = 'editorjs'
+
+/**
+ * EditorJs wraps editor.js in a React component and providing an API to be able
+ * to interact with the editor.js instance.
+ */
+const EditorJs: FunctionComponent<IEditorJsProps> = (props): ReactElement => {
+  const {
+    holderId: deprecatedId,
+    holder: customHolderId,
+    editorInstance,
+    reinitializeOnPropsChange,
+    children,
+    tools,
+    ...otherProps
+  } = props
+
+  const instance: MutableRefObject<EditorJS | null> = useRef(null)
+  const holderId = deprecatedId || customHolderId || DEFAULT_ID
 
   /**
-   * Node to append ref
+   * initialise editorjs with default settings
    */
-  private node = React.createRef<HTMLDivElement>();
+  const initEditor = useCallback(async () => {
+    if (!instance.current) {
+      instance.current = new EditorJS({
+        tools: {
+          paragraph: {
+            class: Paragraph,
+            inlineToolbar: true,
+          },
+          header: Header,
+          ...tools,
+        },
+        holder: holderId,
+        ...otherProps,
+      })
+    }
 
-  componentDidMount() {
-    this.initEditor();
-  }
+    // callback returns current editorjs instance once it is ready
+    if (editorInstance) {
+      await instance.current.isReady
+      editorInstance(instance.current)
+    }
+  }, [editorInstance, holderId, otherProps, tools])
 
-  async componentDidUpdate() {
-    const { reinitOnPropsChange } = this.props;
+  /**
+   * destroy current editorjs instance
+   */
+  const destroyEditor = useCallback(async () => {
+    if (!instance.current) {
+      return true
+    }
 
-    if (reinitOnPropsChange) {
-      const removed = await this.removeEditor();
+    await instance.current.isReady
+    instance.current.destroy()
+    instance.current = null
+    return true
+  }, [instance])
 
-      if (removed) {
-        this.initEditor();
+  /**
+   * initEditor on mount and destroy it on unmount
+   */
+  useEffect(() => {
+    initEditor()
+    return (): void => {
+      destroyEditor()
+    }
+  }, []) // eslint-disable-line
+
+  /**
+   * when props change and reinitializeOnPropsChange is true, the component will
+   * first destroy and then init EditorJS again.
+   */
+  useEffect(() => {
+    const doEffect = async () => {
+      if (!reinitializeOnPropsChange) {
+        return
       }
-    }
-  }
 
-  componentWillUnmount() {
-    this.removeEditor();
-  }
-
-  async initEditor() {
-    const { holder, ...config } = this.props;
-    const { handleChange } = this;
-
-    const holderNode = !holder ? this.getHolderNode() : holder;
-
-    this.editor = new EditorJS({
-      ...config,
-      holder: holderNode,
-      onChange: handleChange,
-    });
-  }
-
-  handleChange = async () => {
-    const { onChange, onData } = this.props;
-
-    if (onChange && typeof onChange === 'function') {
-      /* tslint:disable-next-line */
-      onChange();
+      await destroyEditor()
+      initEditor()
     }
 
-    if (onData && typeof onData === 'function') {
-      this.emitDataEvent(onData);
-    }
-  };
+    doEffect()
+  }, [destroyEditor, initEditor, instance, reinitializeOnPropsChange])
 
-  emitDataEvent = async (cb: (data: OutputData) => void) => {
-    try {
-      const output = await this.editor.save();
-      cb(output);
-    } catch (error) {
-      // tslint:disable-next-line: no-console
-      console.error('Saving failed: ', error);
-    }
-  };
-
-  removeEditor = async () => {
-    if (this.editor) {
-      try {
-        await this.editor.isReady;
-
-        this.editor.destroy();
-        delete this.editor;
-
-        return true;
-      } catch (err) {
-        // tslint:disable-next-line: no-console
-        console.error(err);
-        return false;
-      }
-    }
-
-    return false;
-  };
-
-  getHolderNode = () => {
-    const holder = this.node.current;
-
-    if (!holder) {
-      throw new Error('No node to append Editor.js');
-    }
-
-    return holder;
-  };
-
-  render() {
-    if (!this.props.holder) {
-      return <div ref={this.node} />;
-    }
-
-    return null;
-  }
+  return children || <div id={holderId} />
 }
 
-
-export default EditorWrapper
+export default memo(EditorJs)

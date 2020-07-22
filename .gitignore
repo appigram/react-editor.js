@@ -1,8 +1,22 @@
+# OS, IDE, ...
+.DS_Store
+
+# Logs and Testing
+cypress/screenshots
+cypress/videos
+
+# Development
+.awcache
 node_modules
+tmp
+*.log
+
+# build
+.awcache
+build
 dist
+es
+esm
 lib
-.vscode
-yarn.lock
-.rts2*
-.docz/*
-!.docz/app
+*.tgz
+storybook-static
