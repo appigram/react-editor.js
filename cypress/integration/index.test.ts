@@ -67,8 +67,8 @@ describe('react-editor-js', () => {
       })
       // then test the result
       .then(() => {
-        cy.wait(500)
-        cy.get('.simplebar-wrapper ol')
+        cy.wait(1000)
+        cy.get('#panel-tab-content ol')
           .first()
           .then(element => {
             expect(element).to.contain('onChange')
