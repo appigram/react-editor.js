@@ -1,7 +1,7 @@
 # react-editor-js
 
-[![npm version](https://badge.fury.io/js/%40natterstefan%2Freact-editor-js.svg)](https://badge.fury.io/js/%40natterstefan%2Freact-editor-js)
-[![Build Status](https://travis-ci.com/natterstefan/react-editor-js.svg?branch=master)](https://travis-ci.com/natterstefan/react-editor-js)
+[![npm version](https://badge.fury.io/js/%40appigram%2Freact-editor-js.svg)](https://badge.fury.io/js/%40appigram%2Freact-editor-js)
+[![Build Status](https://travis-ci.com/appigram/react-editor-js.svg?branch=master)](https://travis-ci.com/appigram/react-editor-js)
 [![Cypress.io tests](https://img.shields.io/badge/cypress.io-tests-green.svg?style=flat-square)](https://cypress.io)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/98a2eaf6-7b36-4136-adbd-38d7d68085b3/deploy-status)](https://app.netlify.com/sites/react-editor-js/deploys)
@@ -10,17 +10,17 @@ Unofficial react component for Editor.js ([https://editorjs.io/][1]).
 
 ## Demo
 
-You can see [react-editor-js](https://github.com/natterstefan/react-editor-js)
+You can see [react-editor-js](https://github.com/appigram/react-editor-js)
 in action on both [codesandbox](https://codesandbox.io/s/react-editor-js-example-m9e49)
 and [netlify](https://react-editor-js.netlify.com/).
 
 ## Getting started
 
 ```sh
-npm i @natterstefan/react-editor-js --save
+npm i @appigram/react-editor-js --save
 
 # or
-yarn add @natterstefan/react-editor-js
+yarn add @appigram/react-editor-js
 ```
 
 ## PeerDependencies
@@ -29,23 +29,23 @@ You have to install the required peerDependencies (eg. `React >= 16.8`), which
 are listed by the command:
 
 ```sh
-npm info "@natterstefan/react-editor-js@latest" peerDependencies
+npm info "@appigram/react-editor-js@latest" peerDependencies
 ```
 
 If using npm 5+, use this shortcut:
 
 ```sh
-npx install-peerdeps --dev @natterstefan/react-editor-js
+npx install-peerdeps --dev @appigram/react-editor-js
 
 # or
-yarn add @natterstefan/react-editor-js -D --peer
+yarn add @appigram/react-editor-js -D --peer
 ```
 
 ## Usage
 
 ```jsx
 // index.js
-import EditorJs from '@natterstefan/react-editor-js'
+import EditorJs from '@appigram/react-editor-js'
 
 const App = () => {
   return <EditorJs data={data} />
@@ -66,7 +66,7 @@ for more details.
 
 ```jsx
 // index.js
-import EditorJs from '@natterstefan/react-editor-js'
+import EditorJs from '@appigram/react-editor-js'
 
 const App = () => {
   const editor = null
@@ -120,7 +120,7 @@ simply pass a `tools` property to the `EditorJs` component:
 
 ```jsx
 // index.js
-import EditorJs from '@natterstefan/react-editor-js'
+import EditorJs from '@appigram/react-editor-js'
 import Header from '@editorjs/header'
 
 const App = () => {
@@ -159,7 +159,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="http://twitter.com/natterstefan"><img src="https://avatars2.githubusercontent.com/u/1043668?v=4" width="100px;" alt="Stefan Natter"/><br /><sub><b>Stefan Natter</b></sub></a><br /><a href="https://github.com/natterstefan/react-editor-js/commits?author=natterstefan" title="Code">💻</a> <a href="https://github.com/natterstefan/react-editor-js/commits?author=natterstefan" title="Documentation">📖</a> <a href="#example-natterstefan" title="Examples">💡</a></td>
+    <td align="center"><a href="http://twitter.com/appigram"><img src="https://avatars2.githubusercontent.com/u/1043668?v=4" width="100px;" alt="Stefan Natter"/><br /><sub><b>Stefan Natter</b></sub></a><br /><a href="https://github.com/appigram/react-editor-js/commits?author=appigram" title="Code">💻</a> <a href="https://github.com/appigram/react-editor-js/commits?author=appigram" title="Documentation">📖</a> <a href="#example-appigram" title="Examples">💡</a></td>
   </tr>
 </table>
 
