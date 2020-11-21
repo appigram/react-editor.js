@@ -37,8 +37,6 @@ module.exports = {
         },
         // https://github.com/webpack-contrib/terser-webpack-plugin#extractcomments
         extractComments: true,
-        // https://github.com/webpack-contrib/terser-webpack-plugin#sourcemap
-        sourceMap: true,
       }),
     ],
   },

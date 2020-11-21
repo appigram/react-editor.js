@@ -5,11 +5,16 @@ module.exports = {
     'import/extensions': 0,
     'sort-keys': 0,
     'react/prop-types': 0,
-    '@typescript-eslint/interface-name-prefix': [
-      2,
+    '@typescript-eslint/naming-convention': [
+      'error',
       {
-        prefixWithI: 'always',
-        allowUnderscorePrefix: true,
+        selector: 'interface',
+        format: ['PascalCase'],
+        leadingUnderscore: 'allow',
+        custom: {
+          regex: '^I[A-Z]',
+          match: true,
+        },
       },
     ],
     '@typescript-eslint/no-use-before-define': 0,
@@ -46,6 +51,7 @@ module.exports = {
       },
       rules: {
         // because jest is not used in cypress test files
+        'jest/valid-expect-in-promise': 0,
         'jest/valid-expect': 0,
         'jest/expect-expect': 0,
       },

@@ -128,7 +128,7 @@ storiesOf('ReactEditorJs', module)
       onChange,
     }: {
       appData: any
-      onChange: (data: any) => void
+      onChange: (newAppData: any) => void
     }) => {
       const editorInstance: MutableRefObject<EditorJS | null> = useRef(null)
 
